@@ -1,0 +1,88 @@
+:root {
+    --panel-bg: #ffffff;
+    --panel-border: #e3e3e3;
+    --bg: #f7f7f8;
+    --fg: #1f2328;
+    --accent: #3469d1;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+}
+
+header {
+    padding: 12px 20px;
+    background: var(--panel-bg);
+    border-bottom: 1px solid var(--panel-border);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+header h1 {
+    font-size: 18px;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.controls {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-size: 14px;
+}
+
+.controls input[type="range"] { width: 200px; vertical-align: middle; }
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 12px;
+    padding: 12px;
+    height: calc(100vh - 60px);
+}
+
+#scatterplot-panel { grid-column: 1; grid-row: 1; }
+#map-panel         { grid-column: 2; grid-row: 1 / span 2; }
+#timeseries-panel  { grid-column: 1; grid-row: 2; }
+
+.panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.panel h2 {
+    font-size: 14px;
+    margin: 0 0 6px;
+    color: #555;
+    font-weight: 600;
+}
+
+.panel svg {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.tooltip {
+    position: absolute;
+    pointer-events: none;
+    background: rgba(20, 20, 20, 0.92);
+    color: white;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 1.4;
+    z-index: 10;
+}

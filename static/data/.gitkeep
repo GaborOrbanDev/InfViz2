@@ -1,0 +1,2 @@
+# Drop a world TopoJSON/GeoJSON here as `world.geojson` (or world.topojson).
+# A common choice: https://github.com/topojson/world-atlas (countries-110m.json).

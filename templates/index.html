@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>InfViz2 — Coordinated Views</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/topojson.v3.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>InfViz2 — Coordinated Multi-View Dashboard</h1>
+        <div class="controls">
+            <label>
+                Indicator:
+                <select id="indicator-select"></select>
+            </label>
+            <label>
+                Year: <span id="year-label">2020</span>
+                <input type="range" id="year-slider" min="1960" max="2020" value="2020" step="1">
+            </label>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <section class="panel" id="scatterplot-panel">
+            <h2>PCA Scatterplot</h2>
+            <svg id="scatterplot"></svg>
+        </section>
+
+        <section class="panel" id="map-panel">
+            <h2>Choropleth Map</h2>
+            <svg id="map"></svg>
+        </section>
+
+        <section class="panel" id="timeseries-panel">
+            <h2>Time Series (1960–2020)</h2>
+            <svg id="timeseries"></svg>
+        </section>
+    </main>
+
+    <div id="tooltip" class="tooltip" hidden></div>
+
+    <!-- Module load order matters: state first, then per-view modules, then bootstrap. -->
+    <script src="{{ url_for('static', filename='js/interaction.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scatterplot.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/timeseries.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
