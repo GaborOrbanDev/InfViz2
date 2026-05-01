@@ -35,15 +35,16 @@ InfViz2/
 ├── templates/
 │   └── index.html              # Jinja2 + D3 entry page
 └── static/
-    ├── css/style.css
-    ├── js/
-    │   ├── interaction.js      # shared state (pub/sub)
-    │   ├── scatterplot.js      # PCA scatterplot (Task 3)
-    │   ├── map.js              # choropleth map (Task 4)
-    │   ├── timeseries.js       # line chart (Task 5c)
-    │   └── main.js             # bootstrap + data fetch + UI controls
-    └── data/
-        └── world.geojson       # geographic data (you provide)
+│    ├── css/style.css
+│    ├── js/
+│    │   ├── interaction.js      # shared state (pub/sub)
+│    │   ├── scatterplot.js      # PCA scatterplot (Task 3)
+│    │   ├── map.js              # choropleth map (Task 4)
+│    │   ├── timeseries.js       # line chart (Task 5c)
+│    │   └── main.js             # bootstrap + data fetch + UI controls
+│    └── data/
+│        └── world.geojson       # geographic data (you provide)
+└── utils/ # app.py related helper functions can go inside this package
 ```
 
 ## API
