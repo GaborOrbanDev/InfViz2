@@ -86,3 +86,31 @@ header h1 {
     line-height: 1.4;
     z-index: 10;
 }
+
+/* ---------- Scatterplot (Task 3) ---------- */
+#scatterplot .dot {
+    fill: var(--accent);
+    fill-opacity: 0.75;
+    stroke: white;
+    stroke-width: 1px;
+    cursor: pointer;
+    transition: r 120ms ease, fill-opacity 120ms ease;
+}
+
+#scatterplot .dot.is-hover {
+    fill-opacity: 1;
+    r: 7;
+    stroke: #1f2328;
+}
+
+#scatterplot .country-label {
+    font-size: 10px;
+    fill: #444;
+    pointer-events: none;
+    user-select: none;
+}
+
+#scatterplot .axis-title {
+    font-size: 11px;
+    fill: #555;
+}
