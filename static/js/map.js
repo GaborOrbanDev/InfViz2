@@ -57,24 +57,33 @@
   
         // Draw countries
        
-        g.selectAll('path')
-            .data(features, d => d.properties.name)
-            .join('path')
-            .attr('d', path)
-            .attr('stroke', '#999')
-            .attr('stroke-width', 0.5)
-            .attr('fill', d => {
-                const countryName = d.properties.name;
-                const row = dataMap.get(countryName);
+        const nameMapping = {
+            "Russia": "Russian Federation",
+            "Egypt": "Egypt, Arab Rep.",
+            "Iran": "Iran, Islamic Rep.",
+            "Syria": "Syrian Arab Republic",
+            "Czechia": "Czech Republic"
+        };
 
-                if (!row) return '#eee';
-
-                const value = +row[selectedIndicator];
-
-                if (isNaN(value)) return '#eee';
-
-                return colorScale(value);
-            });
+    g.selectAll('path')
+        .data(features, d => d.properties.name)
+        .join('path')
+        .attr('d', path)
+        .attr('stroke', '#999')
+        .attr('fill', d => {
+            const countryName =
+                nameMapping[d.properties.name] || d.properties.name;
+    
+            const row = dataMap.get(countryName);
+    
+            if (!row) return '#eee';
+    
+            const value = +row[selectedIndicator];
+    
+            if (isNaN(value)) return '#eee';
+    
+            return colorScale(value);
+        });
     }
 
     window.MapView = { init, update };
