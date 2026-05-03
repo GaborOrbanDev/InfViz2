@@ -51,9 +51,6 @@
     // React to state changes
     // -------------------------------------------------------------------
     appState.subscribe((state) => {
-        // TODO: push selectedCountry/brushedCountries highlights into each view.
-        // TODO: when selectedCountry changes, fetch /api/timeseries/<country>
-        //       and feed it to TimeSeries.update.
-        void state;
-    });
+    MapView.update(world, data, state);
+});
 })();
