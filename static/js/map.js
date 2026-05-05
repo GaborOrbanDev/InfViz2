@@ -36,6 +36,14 @@
 
         g = svg.append('g').attr('class', 'countries');
 
+        appState.subscribe((state) => {
+            g.selectAll('path')
+                .classed('is-hovered', d => {
+            const datasetName = NAME_MAP[d.properties?.name] || d.properties?.name;
+            return datasetName === state.selectedCountry;
+        });
+});
+
         projection = d3.geoNaturalEarth1()
             .scale(width / 6)
             .translate([width / 2, height / 2]);
@@ -127,9 +135,7 @@
                     : value.toLocaleString(undefined, { maximumFractionDigits: 2 });
 
                 d3.select(this)
-                    .raise()
-                    .attr('stroke', '#333')
-                    .attr('stroke-width', 1.5);
+                    .classed('is-hovered', true);
 
                 tooltip
                     .attr('hidden', null)
@@ -137,6 +143,8 @@
                         `<strong>${datasetName}</strong><br>` +
                         `${selectedIndicator}: ${display}`
                     );
+                // task 5, set appState.selectedCountry on click
+                appState.set({ selectedCountry: datasetName });
             })
             .on('mousemove', function (event) {
                 tooltip
@@ -145,9 +153,10 @@
             })
             .on('mouseleave', function () {
                 d3.select(this)
-                    .attr('stroke', '#999')
-                    .attr('stroke-width', 0.5);
+                    .classed('is-hovered', false);
                 tooltip.attr('hidden', true);
+                //task 5, clear appState.selectedCountry on mouse leave
+                appState.set({ selectedCountry: null });
             });
 
        

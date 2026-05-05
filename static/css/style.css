@@ -101,6 +101,7 @@ header h1 {
     fill-opacity: 1;
     r: 7;
     stroke: #1f2328;
+    stroke-width: 4;
 }
 
 #scatterplot .country-label {
@@ -113,4 +114,24 @@ header h1 {
 #scatterplot .axis-title {
     font-size: 11px;
     fill: #555;
+}
+
+.countries path {
+    stroke: #999;
+    stroke-width: 0.5;
+}
+
+.countries path.is-hovered {
+    stroke: orange;
+    stroke-width: 4;
+}
+
+.countries path.is-highlighted {
+    stroke: orange;
+    stroke-width: 2;
+}
+
+.countries path.is-hovered.is-highlighted {
+    stroke: #333;
+    stroke-width: 4;
 }

@@ -54,6 +54,12 @@
         g.append('g').attr('class', 'brush');     // Task 6a will mount d3.brush here.
 
         tooltip = d3.select('#tooltip');
+
+        // task 5, subscribe to appState.selectedCountry
+        appState.subscribe((state) => {
+            g.select('.dots').selectAll('circle.dot')
+            .classed('is-hover', d => d.country === state.selectedCountry);
+        });
     }
 
     function update(pcaData /*, state */) {
@@ -129,7 +135,7 @@
             `PC1: ${d.x.toFixed(3)}<br>` +
             `PC2: ${d.y.toFixed(3)}`,
         );
-        // TODO Task 5: appState.set({ selectedCountry: d.country });
+        appState.set({ selectedCountry: d.country });
     }
 
     function onDotMove(event) {
@@ -141,7 +147,7 @@
     function onDotLeave() {
         d3.select(this).classed('is-hover', false);
         tooltip.attr('hidden', true);
-        // TODO Task 5: appState.set({ selectedCountry: null });
+        appState.set({ selectedCountry: null });
     }
 
     window.Scatterplot = { init, update };
