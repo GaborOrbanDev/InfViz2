@@ -11,6 +11,7 @@
 
     const _state = {
         selectedCountry: null,    // hover/click on map or scatterplot
+        clickedCountries: [],    // click on map
         brushedCountries: [],     // d3.brush selection on the scatterplot
         selectedYear: 2020,       // year slider
         selectedIndicator: null,  // indicator dropdown

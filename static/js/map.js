@@ -31,7 +31,7 @@
 
         svg = svgEl;
 
-     
+
         subtitleEl = d3.select(svgEl.node().closest('.panel')).select('h2');
 
         g = svg.append('g').attr('class', 'countries');
@@ -39,10 +39,14 @@
         appState.subscribe((state) => {
             g.selectAll('path')
                 .classed('is-hovered', d => {
-            const datasetName = NAME_MAP[d.properties?.name] || d.properties?.name;
-            return datasetName === state.selectedCountry;
-        });
-});
+                    const datasetName = NAME_MAP[d.properties?.name] || d.properties?.name;
+                    return datasetName === state.selectedCountry;
+                })
+                .classed('is-clicked', d => {
+                    const datasetName = NAME_MAP[d.properties?.name] || d.properties?.name;
+                    return state.clickedCountries.includes(datasetName);
+                });
+    });
 
         projection = d3.geoNaturalEarth1()
             .scale(width / 6)
@@ -58,7 +62,7 @@
         tooltip = d3.select('#tooltip');
     }
 
-   
+
     function update(topoData, data, state = {}) {
         if (!topoData || !data) return;
 
@@ -83,7 +87,7 @@
             );
         }
 
-       
+
         if (!selectedIndicator) {
             g.selectAll('path')
                 .data(features, d => d.properties.name)
@@ -110,7 +114,7 @@
         const colorScale = d3.scaleSequential(d3.interpolateBlues)
             .domain([minVal, maxVal]);
 
-       
+
         g.selectAll('path')
             .data(features, d => d.properties.name)
             .join('path')
@@ -157,9 +161,19 @@
                 tooltip.attr('hidden', true);
                 //task 5, clear appState.selectedCountry on mouse leave
                 appState.set({ selectedCountry: null });
+                //task 5 click event handler
+            }).on('click', function (event, d) {
+                const geoName= d.properties.name;
+                const datasetName= NAME_MAP[geoName] || geoName;
+                const current= appState.get().clickedCountries;
+
+                const updated=current.includes(datasetName)
+                ? current.filter(c => c !== datasetName)  // remove if already selected
+                : [...current, datasetName];               // add if not selected
+
+                appState.set({ clickedCountries: updated });
             });
 
-       
         drawLegend(colorScale, minVal, maxVal);
     }
 

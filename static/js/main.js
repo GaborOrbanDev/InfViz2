@@ -60,15 +60,38 @@
     
     Scatterplot.update(pca);
     MapView.update(world, data, appState.get());
-    TimeSeries.update({});
+    TimeSeries.update({}, appState.get());
 
-    
+async function updateTimeSeries(state) {
+    if (state.clickedCountries.length > 0) {
+        const promises = state.clickedCountries.map(country =>
+            fetch(`/api/timeseries/${country}`)
+                .then(r => r.json())
+                .then(data => ({ country, data }))
+                .catch(() => null)
+        );
+        
+        const results = await Promise.all(promises);
+        
+        const seriesByCountry = {};
+        for (const result of results) {
+            if (!result) continue;
+            seriesByCountry[result.country] = result.data
+                .filter(d => !isNaN(+d[state.selectedIndicator]))
+                .map(d => ({ year: +d.year, value: +d[state.selectedIndicator] }))
+                .sort((a, b) => a.year - b.year);
+        }
+        
+        TimeSeries.update(seriesByCountry, state);
+    } else {
+        TimeSeries.update({}, state);
+    }
+}
     // react to state changes 
-   
     appState.subscribe((state) => {
         Scatterplot.update(pca, state);   
         MapView.update(world, data, state);
-        TimeSeries.update(state);         
+        updateTimeSeries(state);       
     });
 
 })();

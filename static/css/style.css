@@ -126,12 +126,7 @@ header h1 {
     stroke-width: 4;
 }
 
-.countries path.is-highlighted {
+.countries path.is-clicked {
     stroke: orange;
-    stroke-width: 2;
-}
-
-.countries path.is-hovered.is-highlighted {
-    stroke: #333;
     stroke-width: 4;
 }
